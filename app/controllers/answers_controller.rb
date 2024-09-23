@@ -7,9 +7,9 @@ class AnswersController < ApplicationController
       @answers = @question.answers
       selected_answers = @answers.map { |o| o.selected_answer }
       @answers_data = {
-        answer_1: selected_answers.count { |o| o == "answer_1" },
-        answer_2: selected_answers.count { |o| o == "answer_2" },
-        answer_3: selected_answers.count { |o| o == "answer_3" }
+        @question.answer_1 => selected_answers.count { |o| o == "answer_1" },
+        @question.answer_2 => selected_answers.count { |o| o == "answer_2" },
+        @question.answer_3 => selected_answers.count { |o| o == "answer_3" }
       }
     else
       @answers_data = []

@@ -1,9 +1,34 @@
 <h1>Answers#index</h1>
 <p>Find me in app/views/answers/index.html.erb</p>
 
-<%= @answers_data %>
+<div class="row">
+  <div class="col-md-6">
+    <h2>質問</h2>
+    <h3><%= @question.title %></h3>
+    <h2>解答</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>答え</th>
+          <th>選んだ人の数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @answers_data.each do |k, v| %>
+          <rr>
+            <td><%= k %></td>
+            <td><%= v %>人</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
 <div>
-  <canvas id="myChart"></canvas>
+  
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -12,12 +37,12 @@
   const ctx = document.getElementById('myChart');
 
   new Chart(ctx, {
-    type: 'bar',
+    type: 'pie',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: <%== @answers_data.keys %>,
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: <%== @answers_data.values %>,
         borderWidth: 1
       }]
     },
