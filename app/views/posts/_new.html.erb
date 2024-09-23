@@ -1,0 +1,12 @@
+
+<h1>new post</h1>
+<%= form_with url: "/posts", local: true, html: {multipart: true} do |f| %>
+  <div class="mt-3">📷Image</div>
+  <%= f.file_field :image, accept: "image/*", class: "hidden" %>
+  <div class="mt-3">🖋️Title</div>
+  <%= f.text_field :title, class: "form-control" %>
+  <div class="mt-3">📕Instruction</div>
+  <%= f.text_area :body, class: "form-control" %>
+  <%= f.submit '投稿', class: "btn btn-block btn-primary mt-4" %>
+<% end %>
+

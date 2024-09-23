@@ -1,0 +1,22 @@
+<% if @users.any? %>
+  <!-- user名に一致する場合の表示 -->
+  <ul>
+    <% @users.each do |user| %>
+      <li><%= user.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @posts.any? %>
+  <!-- postの中のワードに一致する場合の表示 -->
+  <ul>
+    <% @posts.each do |post| %>
+      <li><%= post.title %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if !@users.any? && !@posts.any? %>
+  <!-- 検索結果がない場合の表示 -->
+  <p>検索結果が見つかりませんでした</p>
+<% end %>
