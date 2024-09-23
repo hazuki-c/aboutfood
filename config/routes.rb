@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  devise_for :admins, path: "admin", controllers: {
+    sessions: "admins/sessions"
+  }
   get 'searches/form' => "searches#form", as: "search"
   root 'homes#top'
   devise_for :users
@@ -17,8 +20,16 @@ Rails.application.routes.draw do
     end
   end
   resources :searches
+  resources :answers, only: [:index, :new, :create]
 
   authenticated :user do
     root to: 'users#show', as: :authenticated_root
+  end
+  
+  namespace :admin do
+    root "home#top"
+    resources :users, only: [:index, :destroy]
+    resources :comments, only: [:index, :destroy]
+    resources :questions
   end
 end

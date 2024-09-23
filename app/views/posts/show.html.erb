@@ -51,35 +51,6 @@
   </div>
   <div class="col-md-8">
     <p>コメント件数：<%= @post.comments.count %></p>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>comment</th>
-          <th>auther</th>
-          <th>created_at</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if @post.comments.any? %>
-          <% @post.comments.each do |comment| %>
-            <tr>
-              <td><%= simple_format comment.comment %></td>
-              <td><%= link_to comment.user.name, user_path(comment.user) %></td>
-              <td><%= l comment.created_at, format: :long %></td>
-              <td>
-                <% if current_user && comment.user == current_user %>
-                  <%= link_to "削除", comment_path(comment), method: :delete %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        <% else %>
-          <tr>
-            <td colspan=4>コメントはまだありません</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render "comments/commets", comments: @post.comments 
   </div>
 </div>

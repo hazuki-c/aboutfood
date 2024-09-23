@@ -1,0 +1,24 @@
+<h1>Admin::Questions#show</h1>
+
+<table class="table">
+  <tr>
+    <th>title</th>
+    <td><%= @question.title %></td>
+  </tr>
+  <tr>
+    <th>answer_1</th>
+    <td><%= @question.answer_1 %></td>
+  </tr>
+  <tr>
+    <th>answer_2</th>
+    <td><%= @question.answer_2 %></td>
+  </tr>
+  <tr>
+    <th>answer_3</th>
+    <td><%= @question.answer_3 %></td>
+  </tr>
+</table>
+
+<%= link_to 'edit', edit_admin_question_path(@question), class: "btn btn-warning" %>
+<%= link_to 'destroy', admin_question_path(@question), method: :delete, data: { confirm: "本当に削除しますか" }, class: "btn btn-danger" %>
+<%= link_to 'back', admin_questions_path, class: "btn btn-secondary" %>

@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_posts, through: :favorites, source: :post
+  
+  has_many :answers, dependent: :destroy
+  
   has_one_attached :profile_image
   
   def get_profile_image(width, height)
