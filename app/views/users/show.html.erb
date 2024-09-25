@@ -6,7 +6,7 @@
       <tr>
         <td>
           <% if @user.profile_image.attached? %>
-            <%= image_tag @post.user.profile_image, style: "width:100%;" %>
+            <%= image_tag @puser.profile_image, style: "width:100%;" %>
           <% else %>
             <%= image_tag 'no_image.jpg', style: "width:100%;" %>
           <% end %>
