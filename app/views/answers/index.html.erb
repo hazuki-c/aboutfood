@@ -1,57 +1,61 @@
-<h1>Answers#index</h1>
-<p>Find me in app/views/answers/index.html.erb</p>
+<h1>みんなの答え</h1>
 
-<div class="row">
-  <div class="col-md-6">
-    <h2>質問</h2>
-    <h3><%= @question.title %></h3>
-    <h2>解答</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>答え</th>
-          <th>選んだ人の数</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @answers_data.each do |k, v| %>
-          <rr>
-            <td><%= k %></td>
-            <td><%= v %>人</td>
+<% if @answers.any? %>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>質問</h2>
+      <h3><%= @question.title %></h3>
+      <h2>解答</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>答え</th>
+            <th>選んだ人の数</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @answers_data.each do |k, v| %>
+            <rr>
+              <td><%= k %></td>
+              <td><%= v %>人</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <canvas id="myChart"></canvas>
+    </div>
   </div>
-  <div class="col-md-6">
-    <canvas id="myChart"></canvas>
+  <div>
+    
   </div>
-</div>
-<div>
   
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: <%== @answers_data.keys %>,
-      datasets: [{
-        label: '# of Votes',
-        data: <%== @answers_data.values %>,
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: <%== @answers_data.keys %>,
+        datasets: [{
+          label: '# of Votes',
+          data: <%== @answers_data.values %>,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
       }
-    }
-  });
-</script>
+    });
+  </script>
+<% else %>
+  <h2>まだ[<%= @question.title %>]への解答はありません.</h2>
+<% end %>
+

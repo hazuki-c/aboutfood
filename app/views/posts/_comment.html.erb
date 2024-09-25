@@ -1,0 +1,8 @@
+<h3>new comment</h3>
+  <%= form_with model: [@post, @comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
+    <%= f.submit "送信する", class: "btn btn-primary btn-block my-4" %>
+  <% end %>
+
+<p>コメント件数：<%= @post.comments.count %></p>
+<%= render "comments/comments", comments: @post.comments %>

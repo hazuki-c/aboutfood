@@ -81,13 +81,13 @@ ActiveRecord::Schema.define(version: 2024_09_23_060109) do
   end
 
   create_table "posts", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.string "title"
     t.string "body"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.text "content"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -120,4 +120,5 @@ ActiveRecord::Schema.define(version: 2024_09_23_060109) do
   add_foreign_key "answers", "users"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "posts", "users"
 end

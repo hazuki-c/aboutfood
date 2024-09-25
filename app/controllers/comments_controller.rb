@@ -1,4 +1,10 @@
 class CommentsController < ApplicationController
+  def index
+    @comments = Comment.all
+    @post = Post.find(params[:id])
+    @comment = Comment.new
+  end
+  
   def create
     post = Post.find(params[:post_id])
     comment = current_user.comments.new(comment_params)
@@ -8,8 +14,11 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    Comment.find(params[:id]).destroy
-    redirect_to post_path(params[:post_id])
+    @comment = Comment.find(params[:id])
+    @post = @comment.post
+    @comment.destroy if @comment
+    flash[:success] = "削除しました"
+    redirect_to post_path(@post)
   end
 
   private

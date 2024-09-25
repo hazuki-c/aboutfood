@@ -16,9 +16,9 @@
           <td><%= l comment.created_at, format: :long %></td>
           <td>
             <% if current_user && comment.user == current_user %>
-              <%= link_to "削除", comment_path(comment), method: :delete %>
+              <%= link_to "削除", comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか" } %>
             <% elsif current_admin %>
-              <%= link_to "削除", admin_comment_path(comment), method: :delete %>
+              <%= link_to "削除", admin_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか" } %>
             <% end %>
           </td>
         </tr>

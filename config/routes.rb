@@ -5,12 +5,15 @@ Rails.application.routes.draw do
   }
   get 'searches/form' => "searches#form", as: "search"
   root 'homes#top'
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations"
+  }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get "homes/about" => "homes#about", as: "about"
   get '/mypage' => 'users#mypage'
   resources :posts do
-    resources :comments, only: [:new, :create]
+    resources :comments, only: [:new, :create], path: 'comments'
     resource :favorites, only: [:create, :destroy]
   end
   resources :comments, only: [:destroy]

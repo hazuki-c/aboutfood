@@ -1,29 +1,31 @@
 <h1>choice group</h1>
 
 <h2><%= @user.name %>'s page</h2>
+<ul style="text-align: right;">
+  <%= link_to "<i class='fa-regular fa-pen-to-square'></i>New post".html_safe, new_post_path, class: "btn btn-primary" %>
+</ul>
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 offset-md-1">
       <%= render 'list', user: @user %>
     </div> 
-    <div class="col-md-8 offset-md-1">  
-      <ul class="navbar navbar-left bg-left">
-        <%= link_to "<i class='fa-regular fa-pen-to-square'></i>New post".html_safe, new_post_path, class: "btn btn-primary" %>
-      </ul>
-      <table>
+    <div class="col-md-8">  
+    　<div style="margin-bottom: 1em;"></div>
+      <table class="table">
+        <h4 style="font-weight: bold;">投稿一覧</h4>
         <thead>
           <tr>
             <th>Title</th>
-            <th>Comment</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <% @posts.each do |post| %>
             <tr>
-              <td>
-                <a href="<%= post_path(post) %>"><%= post.title %></a>
+              <td style="width: 70%;">
+                <a href="<%= post_path(post) %>" style="font-weight: bold; padding-left: 10px;"><%= post.title %></a>
               </td>
-              <td>
-                <%= link_to "#{post.comments.count} ", post_path(post.id) %>
+              <td style="text-align: right;">
+                <%= link_to "<i class='fa-solid fa-comment'></i>#{post.comments.count} コメント".html_safe, post_path(post.id), class: "nav-item nav-link" %>
                 <%= render "favorites/favorite_button", post: post %>
               </td>
               <td>

@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <%= link_to "[択一問題]#{title = Question.last.title}の結果", answers_path, class: "nav-item nav-link", data: { turbolinks: false } %>
+        <%= link_to "#{title = Question.last&.title || "" }'s Answer", answers_path, class: "nav-item nav-link", data: { turbolinks: false }  %>
         <% if user_signed_in? %>
           <%= link_to "#{title}に答える", new_answer_path, class: "nav-item nav-link" %>
           <%= link_to "<i class='fa-regular fa-pen-to-square'></i>Post".html_safe, posts_path, class: "nav-item nav-link" %>

@@ -3,8 +3,8 @@ class AnswersController < ApplicationController
 
   def index
     @question = Question.last
-    if @question.answers.any?
-      @answers = @question.answers
+    @answers = @question.answers
+    if @answers.any?
       selected_answers = @answers.map { |o| o.selected_answer }
       @answers_data = {
         @question.answer_1 => selected_answers.count { |o| o == "answer_1" },
@@ -26,6 +26,10 @@ class AnswersController < ApplicationController
     @answer = current_user.answers.build(question_id: @question.id)
     answer_data = { @question.answer_1 => 1, @question.answer_2 => 2, @question.answer_3 => 3 }
     @answer.selected_answer = answer_data[params['commit']]
+    # 質問が変更されたときに@answerをリセット
+    if @question.changed?
+      @answer = nil
+    end
     @answer.save!
     flash[:notice] = "解答しました."
     redirect_to answers_path
