@@ -1,39 +1,26 @@
-<h4>〇〇の投稿一覧</h4>
-  <table>
-    <thead>
+<h4><%= @user.name %>の投稿一覧</h4>
+
+<div class="row">
+  <div class="col-md-4">
+    <table class="table">
       <tr>
-        <th></th>
-        <th>Title</th>
-        <th>Opinion</th>
+        <td>
+          <% if @user.profile_image.attached? %>
+            <%= image_tag @post.user.profile_image, style: "width:100%;" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', style: "width:100%;" %>
+          <% end %>
+        </td>
       </tr>
-    </thead>
-  
-  <%= form_with model: @user, url:'/users' do |f| %>
-  <tbody>
-    <tr>
-      <td>
-        <%= image_tag 'no_image.jpg', size: "100x100" %>
-      </td>
-  <% end %>
-      
-      <% @posts.each do |post| %>
-  <div>
-    <%= link_to post_path(post.id) do %>
-      <%= image_tag post.get_image %>
-    <% end %>
-    <p>投稿ユーザー画像：<%= image_tag post.user.get_profile_image(100,100) %></p>
-    <p>Title：<%= post.title %></p>
-    <p>説明：<%= post.body %></p>
-    <p>ユーザーネーム：<%= post.user.name %></p>
-    <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+      <tr>
+        <th>name</th>
+        <td><%= link_to @user.name, user_path(@user) %></td>
+      </tr>
+    </table>
   </div>
-      <td>
-        ＝＝タイトル表示＝＝
-      </td>
-      <td>
-        ＝＝本文表示＝＝
-      </td>
-    </tr>  
-  </tbody>
-  <% end %>
-  </table>
+
+  <div class="col-md-8">
+    <p>投稿件数：<%= @user.posts.count %></p>
+    <%= render "posts/posts", posts: @user.posts %>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th style="text-align: center;">Image</th>
+      <th>Title</th>
+      <th>Opinion</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% posts.each do |post| %>
+    <tr>
+      <td style="width: 5%;">
+        <div style="text-align: center;">
+          <% if post.user.profile_image.attached? %>
+            <%= link_to user_path(post.user) do %>
+              <%= image_tag post.user.profile_image, size: "70x70" %>
+            <% end %>
+            <br>
+            <%= post.user.name %>
+          <% else %>
+            <%= link_to user_path(post.user) do %>
+              <%= image_tag 'no_image.jpg', size: "70x70" %>
+            <% end %>
+            <br>
+            <%= post.user.name %>
+          <% end %>
+        </div>
+      </td>
+      <td style="vertical-align: middle; width: 20%; text-align: center;">
+        <% if post.image.attached? %>
+          <%= image_tag post.image %>
+        <% end %>
+      </td>
+      <td style="vertical-align: bottom;width: 45%;">
+        <a href="<%= post_path(post) %>" style="font-weight: bold; font-size: 20px; border-radius: 50%;"><%= post.title %></a>
+        <br>
+        <%= post.body.truncate(20, omission: '...') %>
+      </td>
+      <td style="vertical-align: bottom;width: 30%;">
+        <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
+        <br>
+        <%= render "favorites/favorite_button", post: post %>
+      </td>
+    </tr>
+    <% end %>
+
+  </tbody>
+</table>
